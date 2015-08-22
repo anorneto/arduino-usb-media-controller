@@ -16,8 +16,13 @@ RotaryEncoder encoder(A2, A3);
 #define NEXT_PIN     15 // button connected to ground and to digital pin 15
 #define PREVIOUS_PIN 16 // button connected to ground and to digital pin 16
 
+#define GREEN_LED 8
+#define RED_LED   9
+
 void setup()
 {
+  pinMode(GREEN_LED,OUTPUT);
+  pinMode(RED_LED,OUTPUT);
   pinMode(SWITCH_PIN, INPUT); // set the switch button port as an input
   pinMode(PLAY_PIN, INPUT); // set the play/pause button port as an input
   pinMode(NEXT_PIN, INPUT); // set the next button port as an input
@@ -26,16 +31,24 @@ void setup()
   digitalWrite(PLAY_PIN, HIGH); // activate internal pull-up on play_pin
   digitalWrite(NEXT_PIN, HIGH); // activate internal pull-up on next_pin
   digitalWrite(PREVIOUS_PIN, HIGH); // activate internal pull-up on next_pin
+
+  digitalWrite(GREEN_LED,HIGH);
+  
   Consumer.begin();
 }
 
 void loop()
 {
   //Let's verify if the button was pressed, it is pressed when it's HIGH
-
+  static boolean muted_state_controll = 0 ;
   if (!digitalRead(SWITCH_PIN))
   {
-    Consumer.write(MEDIA_VOLUME_MUTE);   
+    Consumer.write(MEDIA_VOLUME_MUTE);
+    
+    digitalWrite(RED_LED, !muted_state_controll);
+    digitalWrite(GREEN_LED, muted_state_controll); 
+    muted_state_controll = !muted_state_controll ;
+       
     while (digitalRead(SWITCH_PIN) == LOW)
       delay(10);
   }
