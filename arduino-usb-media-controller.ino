@@ -49,7 +49,7 @@ void setup()
 
   Consumer.begin(); // starts the usb hid control
 
-  LcdString("Hello World!");
+  LcdString("MUAHAHHAHAHAHAHHAHA");
 }
 
 
@@ -57,14 +57,14 @@ void setup()
 void loop()
 {
   //Let's verify if the button was pressed, it is pressed when it's HIGH
-  static boolean muted_state_controll = 0 ;
+  static boolean muted_state_control = 0 ;
   if (!digitalRead(SWITCH_PIN))
   {
     Consumer.write(MEDIA_VOLUME_MUTE);
     
-    digitalWrite(RED_LED, !muted_state_controll); // when the button is pressed it sends a mute
-    digitalWrite(GREEN_LED, muted_state_controll); // command to the pc .turns off the green led
-    muted_state_controll = !muted_state_controll ; // and on the red led
+    digitalWrite(RED_LED, !muted_state_control); // when the button is pressed it sends a mute
+    digitalWrite(GREEN_LED, muted_state_control); // command to the pc .turns off the green led
+    muted_state_control = !muted_state_control ; // and on the red led
        
     while (digitalRead(SWITCH_PIN) == LOW) // SUPER simple debounce method
       delay(10);
@@ -81,7 +81,7 @@ void loop()
     while (digitalRead(NEXT_PIN) == LOW)
       delay(10);
   }
-  else if (!digitalRead(PREVIOUS_PIN)) // if the pricous button is pressed send the respective
+  else if (!digitalRead(PREVIOUS_PIN)) // if the previous button is pressed send the respective
   {                                    // command to the pc
     Consumer.write(MEDIA_PREVIOUS);   
     while (digitalRead(PREVIOUS_PIN) == LOW)
