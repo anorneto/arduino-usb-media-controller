@@ -15,7 +15,7 @@ static const byte ASCII[][5] = {
   ,{0x14, 0x7f, 0x14, 0x7f, 0x14} // 23 #
   ,{0x24, 0x2a, 0x7f, 0x2a, 0x12} // 24 $
   ,{0x23, 0x13, 0x08, 0x64, 0x62} // 25 %
-  ,{0x36, 0x49, 0x55, 0x22, 0x50} // 26 &
+  ,{0x36, 0x49, 0x55, 0x22, 0x50} // 26 &5
   ,{0x00, 0x05, 0x03, 0x00, 0x00} // 27 '
   ,{0x00, 0x1c, 0x22, 0x41, 0x00} // 28 (
   ,{0x00, 0x41, 0x22, 0x1c, 0x00} // 29 )
@@ -121,11 +121,27 @@ void GoToXY(int x, int y) {
 }
 
 //Clears the LCD by writing zeros to the entire screen
-void LcdClear(void) {
+void LcdClearAll(void) {
   for (int index = 0 ; index < (LCD_X * LCD_Y / 8) ; index++)
     LcdWrite(LCD_DATA, 0x00);
     
   GoToXY(0, 0); //After we clear the display, return to the home position
+}
+
+void LcdClearRow(int row){ //because characters are 8 pixes high we have 6 rows(0 - 5)
+  if  (row > 5 || row < 0)
+  {
+    // do nothing, because its out of the scope
+  }
+  else 
+  {
+    GoToXY(0,row); 
+    // lets fill the row with blank chars
+    for (int index = 0; index < 84; index ++)
+      LcdWrite(LCD_DATA, 0x00);
+
+    GoToXY(0,row); // After we clear the display, return to the beginning of the row
+  }
 }
 
 //draws a large array of bits to the LCD

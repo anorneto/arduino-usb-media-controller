@@ -38,7 +38,7 @@ void setup()
   pinMode(PREVIOUS_PIN, INPUT); // set the next button port as an input
 
   LcdInit(); //initializes the lcd
-  LcdClear(); // clears the display, just in case
+  LcdClearAll(); // clears the display, just in case
   
   digitalWrite(SWITCH_PIN, HIGH); // activate internal pull-up on switch_pin
   digitalWrite(PLAY_PIN, HIGH); // activate internal pull-up on play_pin
@@ -49,7 +49,19 @@ void setup()
 
   Consumer.begin(); // starts the usb hid control
 
-  LcdString("MUAHAHHAHAHAHAHHAHA");
+  GoToXY(0,0);
+  LcdString("1 row");
+  GoToXY(0,1);
+  LcdString("2 row");
+  GoToXY(0,2);
+  LcdString("3 row");
+  GoToXY(0,3);
+  LcdString("4 row");
+  GoToXY(0,4);
+  LcdString("5 row");
+  GoToXY(0,5);
+  LcdString("6 row");
+  LcdClearRow(4);
 }
 
 
